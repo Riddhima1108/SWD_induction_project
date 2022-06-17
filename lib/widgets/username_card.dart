@@ -1,5 +1,7 @@
-import 'package:assign1/model/user_model.dart';
+import '../model/user_model.dart';
+import '../screens/user_detailscreen.dart';
 import 'package:flutter/material.dart';
+import '../screens/user_detailscreen.dart';
 
 class UserCard extends StatelessWidget {
   final List<UserModel> Username;
@@ -7,11 +9,19 @@ class UserCard extends StatelessWidget {
   const UserCard({Key? key, required this.Username, required this.index})
       : super(key: key);
 
+  void selectUser(BuildContext ctx) {
+    Navigator.of(ctx).push(MaterialPageRoute(builder: (_) {
+      return UserDetailScreen( userdetails: Username,index :index);
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(4),
       child: InkWell(
+        onTap: () => selectUser(context),
+        borderRadius: BorderRadius.circular(10.0),
         child: Card(
           elevation: 5.0,
           color: Colors.grey[800],
@@ -22,6 +32,7 @@ class UserCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -44,9 +55,6 @@ class UserCard extends StatelessWidget {
             ),
           ),
         ),
-        onTap: () {
-          print("Clicked ");
-        },
       ),
     );
   }
