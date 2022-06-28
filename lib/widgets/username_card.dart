@@ -1,7 +1,7 @@
 import '../model/user_model.dart';
 import '../screens/user_detailscreen.dart';
 import 'package:flutter/material.dart';
-import '../screens/user_detailscreen.dart';
+
 
 class UserCard extends StatelessWidget {
   final List<UserModel> Username;

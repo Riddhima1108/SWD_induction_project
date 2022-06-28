@@ -1,7 +1,7 @@
-import 'package:assign1/widgets/username_card.dart';
+import '../widgets/username_card.dart';
 import 'package:flutter/material.dart';
-import 'package:assign1/model/user_model.dart';
-import 'package:assign1/services/api_userdata.dart';
+import '../model/user_model.dart';
+import '../services/api_userdata.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

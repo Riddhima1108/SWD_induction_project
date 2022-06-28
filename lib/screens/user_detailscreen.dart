@@ -3,34 +3,42 @@ import '../model/user_model.dart';
 import './post_screen.dart';
 import './albums_screen.dart';
 
-class UserDetailScreen extends StatelessWidget {
+class UserDetailScreen extends StatefulWidget {
   final List<UserModel> userdetails;
   final int index;
 
   UserDetailScreen({Key? key, required this.userdetails, required this.index})
       : super(key: key);
 
- 
+  @override
+  State<UserDetailScreen> createState() => _UserDetailScreenState();
+  
+}
 
-  void onpressPost(BuildContext ctx) {
+class _UserDetailScreenState extends State<UserDetailScreen> {
+ void onpressPost(BuildContext ctx) {
     Navigator.of(ctx).push(MaterialPageRoute(builder: (_) {
-      return UserPostScreen();
+      return UserPostScreen(id:widget.userdetails[widget.index].id);
     }));
+    
   }
+  
+  
 
   void onpressAlbum(BuildContext ctx) {
     Navigator.of(ctx).push(MaterialPageRoute(builder: (_) {
-      return UserAlbumScreen();
+      return UserAlbumScreen(id:widget.userdetails[widget.index].id);
     }));
   }
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
         backgroundColor: Colors.grey[900],
         appBar: AppBar(
           title: Text(
-            userdetails[index].username,
+            widget.userdetails[widget.index].username,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           backgroundColor: Colors.grey[800],
@@ -50,7 +58,7 @@ class UserDetailScreen extends StatelessWidget {
                     size: 175,
                   )),
                   Text(
-                    userdetails[index].name,
+                    widget.userdetails[widget.index].name,
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 30),
                   ),
@@ -62,7 +70,7 @@ class UserDetailScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                       Text(
-                        userdetails[index].email,
+                        widget.userdetails[widget.index].email,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 19),
                       ),
@@ -78,7 +86,7 @@ class UserDetailScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        userdetails[index].address.street,
+                        widget.userdetails[widget.index].address.street,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 17,
@@ -92,21 +100,21 @@ class UserDetailScreen extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            userdetails[index].address.suite,
+                            widget.userdetails[widget.index].address.suite,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 17,
                             ),
                           ),
                           Text(
-                            userdetails[index].address.city,
+                            widget.userdetails[widget.index].address.city,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 17,
                             ),
                           ),
                           Text(
-                            userdetails[index].address.zipcode,
+                            widget.userdetails[widget.index].address.zipcode,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 17,
@@ -123,7 +131,7 @@ class UserDetailScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                userdetails[index].address.geo.lat,
+                                widget.userdetails[widget.index].address.geo.lat,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15,
@@ -137,7 +145,7 @@ class UserDetailScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                userdetails[index].address.geo.lng,
+                                widget.userdetails[widget.index].address.geo.lng,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15,
@@ -159,7 +167,7 @@ class UserDetailScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        userdetails[index].phone,
+                        widget.userdetails[widget.index].phone,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 17,
@@ -177,7 +185,7 @@ class UserDetailScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        userdetails[index].website,
+                        widget.userdetails[widget.index].website,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 17,
@@ -195,7 +203,7 @@ class UserDetailScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        userdetails[index].company.name,
+                        widget.userdetails[widget.index].company.name,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 17,
@@ -217,7 +225,7 @@ class UserDetailScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        userdetails[index].company.catchPhrase,
+                        widget.userdetails[widget.index].company.catchPhrase,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 17,
@@ -239,7 +247,7 @@ class UserDetailScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        userdetails[index].company.bs,
+                        widget.userdetails[widget.index].company.bs,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 17,
