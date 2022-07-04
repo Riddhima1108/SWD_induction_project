@@ -1,7 +1,9 @@
+
+
 import '../model/user_model.dart';
 import '../screens/user_detailscreen.dart';
 import 'package:flutter/material.dart';
-
+import '../constant.dart';
 
 class UserCard extends StatelessWidget {
   final List<UserModel> Username;
@@ -11,47 +13,52 @@ class UserCard extends StatelessWidget {
 
   void selectUser(BuildContext ctx) {
     Navigator.of(ctx).push(MaterialPageRoute(builder: (_) {
-      return UserDetailScreen( userdetails: Username,index :index);
+      return UserDetailScreen(userdetails: Username, index: index);
     }));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(4),
-      child: InkWell(
-        onTap: () => selectUser(context),
-        borderRadius: BorderRadius.circular(10.0),
-        child: Card(
-          elevation: 5.0,
-          color: Colors.grey[800],
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      Username[index].username,
-                      style: TextStyle(color: Colors.white, fontSize: 24),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(13),
+      child: Container(
+        // padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(13),
+          boxShadow: const [
+            BoxShadow(
+              offset: Offset(0, 17),
+              blurRadius: 17,
+              spreadRadius: -23,
+              color: kShadowColor,
+            ),
+          ],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: () => selectUser(context),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: <Widget>[
+               
+                 
+                 Spacer(),
+                  
+                     Text(
+                       Username[index].username,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme.bodyText1
+                          
+                          ,
                     ),
-                    Text(
-                      Username[index].name,
-                      style: TextStyle(color: Colors.white, fontSize: 12),
-                    )
-                  ],
-                ),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.white,
-                  size: 15,
-                )
-              ],
+                  
+
+                ],
+              ),
             ),
           ),
         ),

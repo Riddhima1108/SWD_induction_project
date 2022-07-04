@@ -1,3 +1,4 @@
+import 'package:assign1/screens/comments_screen.dart';
 import 'package:flutter/material.dart';
 import '../model/posts_model.dart';
 import '../services/api_postdata.dart';
@@ -31,6 +32,15 @@ class _UserPostScreenState extends State<UserPostScreen> {
     });});
   }
 
+   void postComments(BuildContext ctx, int index) {
+    Navigator.of(ctx).push(MaterialPageRoute(builder: (_) {
+      return PostCommentScreen(userposts: _userposts!, index: index);
+    }));
+    
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,15 +52,18 @@ class _UserPostScreenState extends State<UserPostScreen> {
           : ListView.builder(
               itemCount: _userposts!.length,
               itemBuilder: (context, index) {
-                return Card(
-                  child: Column(
-                    children: [
-                      
-                      Text(_userposts![index].title),
-                      Text(_userposts![index].body),
-                    ],
-                  )
-                , 
+                return InkWell(
+                  onTap: () => postComments(context,index),
+                  child: Card(
+                    child: Column(
+                      children: [
+                        
+                        Text(_userposts![index].title),
+                        Text(_userposts![index].body),
+                      ],
+                    )
+                  , 
+                  ),
                 );
               },
             ),

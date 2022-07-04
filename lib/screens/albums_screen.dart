@@ -32,7 +32,9 @@ class _UserAlbumScreenState extends State<UserAlbumScreen> {
   }@override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('ALBUMS')),
+      appBar: AppBar(title: const Text('ALBUMS',style:TextStyle(fontWeight: FontWeight.bold, )),backgroundColor:Colors.grey[900], 
+      
+         ),
       body: _useralbums == null || _useralbums!.isEmpty
           ? const Center(
               child: CircularProgressIndicator(),
