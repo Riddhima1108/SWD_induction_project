@@ -9,6 +9,7 @@ import './albums_screen.dart';
 
 import '../constant.dart';
 import '../widgets/picture_space.dart';
+
 class UserDetailScreen extends StatefulWidget {
   final List<UserModel> userdetails;
   final int index;
@@ -32,9 +33,6 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
       return UserAlbumScreen(id: widget.userdetails[widget.index].id);
     }));
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -150,61 +148,71 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                           showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return Dialog( backgroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                    BorderRadius.circular(20.0),side: BorderSide(width: 2,
-                                  color: Colors.deepPurple.shade300)),
-                     child: Container (
-
-                       height: size.height * 0.3,
-                       child: Padding(padding: EdgeInsets.all(12),
-                        child: Column(
-                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                           children: [
-                           ListTile(
-                            leading: Icon(Icons.phone_rounded),
-                            title: Text("Phone No.",style:TextStyle(fontWeight: FontWeight.bold),),
-                            subtitle:Text(
-                        widget.userdetails[widget.index].phone,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.normal,
-                          
-                        ),
-                      ) ,
-                          ),
-                          
-                          ListTile(
-                            leading: Icon(Icons.public_rounded),
-                            title: Text("Website",style:  TextStyle(
-                          fontWeight: FontWeight.bold,
-                          
-                        ),),
-                            subtitle:Text(
-                        widget.userdetails[widget.index].website,
-                        style: const TextStyle( 
-                          fontWeight: FontWeight.normal,
-                          
-                        ),
-                      ) ,
-                          ),
-                          SizedBox(
-                            width: size.width * 0.15,
-                          child: TextButton( 
-                            onPressed:(){ 
-                             Navigator.of(context).pop();
-                          }, child: Text("Back",style: TextStyle(
-                            color: Colors.deepPurple.shade600,
-                            fontWeight: FontWeight.bold)
-
-                          ), ),
-                          )
-                        ],
-
-                        ),),
-                      )
-                      
-                                ,);
+                                return Dialog(
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      side: BorderSide(
+                                          width: 2,
+                                          color: Colors.deepPurple.shade300)),
+                                  child: Container(
+                                    height: size.height * 0.3,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(12),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          ListTile(
+                                            leading: Icon(Icons.phone_rounded),
+                                            title: Text(
+                                              "Phone No.",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            subtitle: Text(
+                                              widget.userdetails[widget.index]
+                                                  .phone,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          ),
+                                          ListTile(
+                                            leading: Icon(Icons.public_rounded),
+                                            title: Text(
+                                              "Website",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            subtitle: Text(
+                                              widget.userdetails[widget.index]
+                                                  .website,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.15,
+                                            child: TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text("Back",
+                                                  style: TextStyle(
+                                                      color: Colors
+                                                          .deepPurple.shade600,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
                               });
                         },
                         child: Row(
@@ -226,8 +234,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                           ],
                         ),
                       )),
-
-                      Padding(
+                  Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: TextButton(
@@ -244,124 +251,164 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                           showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return Dialog( backgroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                    BorderRadius.circular(20.0),side: BorderSide(width: 2,
-                                  color: Colors.deepPurple.shade300)),
-                     child: Container (
-
-                       height: size.height * 0.6,
-                       child: Padding(padding: EdgeInsets.all(12),
-                        child: Column(
-                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                           children: [
-                           ListTile(
-                            
-                            title: Text("Suite",style:TextStyle(fontWeight: FontWeight.bold),),
-                            subtitle:Text(
-                        widget.userdetails[widget.index].address.suite,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.normal,
-                          
-                        ),
-                      ) ,
-                          ),
-                          
-                          ListTile(
-                           
-                            title: Text("Street",style:  TextStyle(
-                          fontWeight: FontWeight.bold,
-                          
-                        ),),
-                            subtitle:Text(
-                        widget.userdetails[widget.index].address.street,
-                        style: const TextStyle( 
-                          fontWeight: FontWeight.normal,
-                          
-                        ),
-                      ) ,
-                          ),
-                          ListTile(
-                           
-                            title: Text("City",style:  TextStyle(
-                          fontWeight: FontWeight.bold,
-                          
-                        ),),
-                            subtitle:Text(
-                        widget.userdetails[widget.index].address.city,
-                        style: const TextStyle( 
-                          fontWeight: FontWeight.normal,
-                          
-                        ),
-                      ) ,
-                          ),
-                          ListTile(
-                           
-                            title: Text("Zip Code ",style:  TextStyle(
-                          fontWeight: FontWeight.bold,
-                          
-                        ),),
-                            subtitle:Text(
-                        widget.userdetails[widget.index].address.zipcode,
-                        style: const TextStyle( 
-                          fontWeight: FontWeight.normal,
-                          
-                        ),
-                      ) ,
-                          ),
-                          ListTile(
-                           
-                            title: Text("Latitude",style:  TextStyle(
-                          fontWeight: FontWeight.bold,
-                          
-                        ),),
-                            subtitle:Text(
-                        widget.userdetails[widget.index].address.geo.lat,
-                        style: const TextStyle( 
-                          fontWeight: FontWeight.normal,
-                          
-                        ),
-                      ) ,
-                          ),
-                          ListTile(
-                           
-                            title: Text("Longitude",style:  TextStyle(
-                          fontWeight: FontWeight.bold,
-                          
-                        ),),
-                            subtitle:Text(
-                        widget.userdetails[widget.index].address.geo.lng,
-                        style: const TextStyle( 
-                          fontWeight: FontWeight.normal,
-                          
-                        ),
-                      ) ,
-                          ),
-                          SizedBox(
-                            width: size.width * 0.15,
-                          child: TextButton( 
-                            onPressed:(){ 
-                             Navigator.of(context).pop();
-                          }, child: Text("Back",style: TextStyle(
-                            color: Colors.deepPurple.shade600,
-                            fontWeight: FontWeight.bold)
-
-                          ), ),
-                          )
-                        ],
-
-                        ),),
-                      )
-                      
-                                ,);
+                                return Dialog(
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      side: BorderSide(
+                                          width: 2,
+                                          color: Colors.deepPurple.shade300)),
+                                  child: Container(
+                                    height: size.height * 0.45,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(12),
+                                      child: Scrollbar(
+                                        thumbVisibility: true,
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  "Suite",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                subtitle: Text(
+                                                  widget
+                                                      .userdetails[widget.index]
+                                                      .address
+                                                      .suite,
+                                                  style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ),
+                                              ListTile(
+                                                title: Text(
+                                                  "Street",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                subtitle: Text(
+                                                  widget
+                                                      .userdetails[widget.index]
+                                                      .address
+                                                      .street,
+                                                  style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ),
+                                              ListTile(
+                                                title: Text(
+                                                  "City",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                subtitle: Text(
+                                                  widget
+                                                      .userdetails[widget.index]
+                                                      .address
+                                                      .city,
+                                                  style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ),
+                                              ListTile(
+                                                title: Text(
+                                                  "Zip Code ",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                subtitle: Text(
+                                                  widget
+                                                      .userdetails[widget.index]
+                                                      .address
+                                                      .zipcode,
+                                                  style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ),
+                                              ListTile(
+                                                title: Text(
+                                                  "Latitude",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                subtitle: Text(
+                                                  widget
+                                                      .userdetails[widget.index]
+                                                      .address
+                                                      .geo
+                                                      .lat,
+                                                  style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ),
+                                              ListTile(
+                                                title: Text(
+                                                  "Longitude",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                subtitle: Text(
+                                                  widget
+                                                      .userdetails[widget.index]
+                                                      .address
+                                                      .geo
+                                                      .lng,
+                                                  style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: size.width * 0.15,
+                                                child: TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text("Back",
+                                                      style: TextStyle(
+                                                          color: Colors
+                                                              .deepPurple
+                                                              .shade600,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
                               });
                         },
                         child: Row(
                           children: const [
-                            Icon(Icons.home,
-                            color: kBlueColor,  ),
-                            
+                            Icon(
+                              Icons.home,
+                              color: kBlueColor,
+                            ),
                             SizedBox(width: 20),
                             Expanded(
                               child: Text("Address",
@@ -374,8 +421,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                           ],
                         ),
                       )),
-
-                      Padding(
+                  Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: TextButton(
@@ -392,86 +438,93 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                           showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return Dialog( backgroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                    BorderRadius.circular(20.0),side: BorderSide(width: 2,
-                                  color: Colors.deepPurple.shade300)),
-                     child: Container (
-
-                       height: size.height * 0.4,
-                       child: Padding(padding: EdgeInsets.all(12),
-                        child: Column(
-                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                           children: [
-                           ListTile(
-                            
-                            title: Text("Name",style:TextStyle(fontWeight: FontWeight.bold),),
-                            subtitle:Text(
-                        widget.userdetails[widget.index].company.name,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.normal,
-                          
-                        ),
-                      ) ,
-                          ),
-                          ListTile(
-                           
-                            title: Text(" Company Business ",style:  TextStyle(
-                          fontWeight: FontWeight.bold,
-                          
-                        ),),
-                            subtitle:Text(
-                        widget.userdetails[widget.index].company.bs,
-                        style: const TextStyle( 
-                          fontWeight: FontWeight.normal,
-                          
-                        ),
-                      ) ,
-                          ),
-                          
-                          ListTile(
-                           
-                            title: Text("Comapny's Catch Phrase",style:  TextStyle(
-                          fontWeight: FontWeight.bold,
-                          
-                        ),),
-                            subtitle:Text(
-                        widget.userdetails[widget.index].company.catchPhrase,
-                        style: const TextStyle( 
-                          fontWeight: FontWeight.normal,
-                          
-                        ),
-                      ) ,
-                          ),
-                          SizedBox(
-                            width: size.width * 0.15,
-                          child: TextButton( 
-                            onPressed:(){ 
-                             Navigator.of(context).pop();
-                          }, child: Text("Back",style: TextStyle(
-                            color: Colors.deepPurple.shade600,
-                            fontWeight: FontWeight.bold)
-
-                          ), ),
-                          )
-                        ],
-
-                        ),),
-                      )
-                      
-                                ,);
+                                return Dialog(
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      side: BorderSide(
+                                          width: 2,
+                                          color: Colors.deepPurple.shade300)),
+                                  child: Container(
+                                    height: size.height * 0.4,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(12),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          ListTile(
+                                            title: Text(
+                                              "Name",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            subtitle: Text(
+                                              widget.userdetails[widget.index]
+                                                  .company.name,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          ),
+                                          ListTile(
+                                            title: Text(
+                                              " Company Business ",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            subtitle: Text(
+                                              widget.userdetails[widget.index]
+                                                  .company.bs,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          ),
+                                          ListTile(
+                                            title: Text(
+                                              "Comapny's Catch Phrase",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            subtitle: Text(
+                                              widget.userdetails[widget.index]
+                                                  .company.catchPhrase,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.15,
+                                            child: TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text("Back",
+                                                  style: TextStyle(
+                                                      color: Colors
+                                                          .deepPurple.shade600,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
                               });
                         },
                         child: Row(
-                          children:  [
-                     
+                          children: [
                             SvgPicture.asset(
                               "assets/icons/company.svg",
                               color: kBlueColor,
                               width: 22,
                             ),
-                            
                             SizedBox(width: 20),
                             Expanded(
                               child: Text("About Company",
@@ -484,7 +537,6 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                           ],
                         ),
                       )),
-                      
                 ],
               ),
             )

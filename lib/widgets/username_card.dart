@@ -1,4 +1,4 @@
-
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../model/user_model.dart';
 import '../screens/user_detailscreen.dart';
@@ -19,6 +19,7 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return ClipRRect(
       borderRadius: BorderRadius.circular(13),
       child: Container(
@@ -43,20 +44,17 @@ class UserCard extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: <Widget>[
-               
-                 
-                 Spacer(),
-                  
-                     Text(
-                       Username[index].username,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context)
-                          .textTheme.bodyText1
-                          
-                          ,
-                    ),
-                  
-
+                  Container(
+                    height: size.height * .15,
+                    width: size.width * .25,
+                    child: SvgPicture.asset('assets/icons/user_img.svg'),
+                  ),
+                  Spacer(),
+                  Text(
+                    Username[index].username,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
                 ],
               ),
             ),

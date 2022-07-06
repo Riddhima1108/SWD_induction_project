@@ -26,13 +26,14 @@ class _PostCommentScreenState extends State<PostCommentScreen> {
   void _getCommentsData() async {
     _commentsModel = (await ApiCommentData().getComments());
 
-    setState(() {{_commentsModel?.forEach((element) {
-      if (element.postId== widget.userposts[widget.index].id) {
-        _postcomments!.add(element);
+    setState(() {
+      {
+        _commentsModel?.forEach((element) {
+          if (element.postId == widget.userposts[widget.index].id) {
+            _postcomments!.add(element);
+          }
+        });
       }
-    });}
-      
-      
     });
   }
 

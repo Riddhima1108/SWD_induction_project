@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../model/albums_model.dart';
 import '../services/api_albumdata.dart';
+import '../widgets/albums_card.dart';
 
 class UserAlbumScreen extends StatefulWidget {
   final int id;
@@ -11,9 +13,8 @@ class UserAlbumScreen extends StatefulWidget {
 }
 
 class _UserAlbumScreenState extends State<UserAlbumScreen> {
-  
   List<AlbumModel>? _albumModel = [];
-   List<AlbumModel>? _useralbums= [];
+  List<AlbumModel>? _useralbums = [];
 
   @override
   void initState() {
@@ -23,37 +24,75 @@ class _UserAlbumScreenState extends State<UserAlbumScreen> {
 
   void _getAlbumData() async {
     _albumModel = (await ApiAlbumData().getAlbums())!;
-    
-    setState(() {_albumModel?.forEach((element) {
-      if (element.userId == widget.id) {
-        _useralbums!.add(element);
-      }
-    });});
-  }@override
+
+    setState(() {
+      _albumModel?.forEach((element) {
+        if (element.userId == widget.id) {
+          _useralbums!.add(element);
+        }
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(title: const Text('ALBUMS',style:TextStyle(fontWeight: FontWeight.bold, )),backgroundColor:Colors.grey[900], 
-      
-         ),
+      appBar: AppBar(
+        backgroundColor: Colors.orangeAccent.shade100,
+        elevation: 0,
+      ),
       body: _useralbums == null || _useralbums!.isEmpty
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : ListView.builder(
-              itemCount: _useralbums!.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  child: Column(
-                    children: [
-                      
-                      Text(_useralbums![index].title),
-                      
-                    ],
-                  )
-                , 
-                );
-              },
-            ),
+          : Stack(children: [
+              Container(
+                height: size.height * .3,
+                decoration: BoxDecoration(
+                  color: Colors.orangeAccent.shade100,
+                ),
+              ),
+              SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(children: [
+                    Text("Albums",
+                        style: Theme.of(context).textTheme.displaySmall),
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 20),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(29.5),
+                      ),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: "Search",
+                          icon: SvgPicture.asset("assets/icons/search.svg"),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        child: ListView.separated(
+                          padding: EdgeInsets.all(16),
+                          itemCount: _useralbums!.length,
+                          itemBuilder: (context, index) {
+                            return AlbumCard(
+                                Albums: _useralbums!, index: index);
+                          },
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(height: 16),
+                        ),
+                      ),
+                    )
+                  ]),
+                ),
+              ),
+            ]),
     );
   }
 }

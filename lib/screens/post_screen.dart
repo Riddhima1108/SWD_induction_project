@@ -24,22 +24,21 @@ class _UserPostScreenState extends State<UserPostScreen> {
 
   void _getPostData() async {
     _postModel = (await ApiPostData().getPosts())!;
-    
-    setState(() {_postModel?.forEach((element) {
-      if (element.userId == widget.id) {
-        _userposts!.add(element);
-      }
-    });});
+
+    setState(() {
+      _postModel?.forEach((element) {
+        if (element.userId == widget.id) {
+          _userposts!.add(element);
+        }
+      });
+    });
   }
 
-   void postComments(BuildContext ctx, int index) {
+  void postComments(BuildContext ctx, int index) {
     Navigator.of(ctx).push(MaterialPageRoute(builder: (_) {
       return PostCommentScreen(userposts: _userposts!, index: index);
     }));
-    
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,16 +52,14 @@ class _UserPostScreenState extends State<UserPostScreen> {
               itemCount: _userposts!.length,
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: () => postComments(context,index),
+                  onTap: () => postComments(context, index),
                   child: Card(
                     child: Column(
                       children: [
-                        
                         Text(_userposts![index].title),
                         Text(_userposts![index].body),
                       ],
-                    )
-                  , 
+                    ),
                   ),
                 );
               },
