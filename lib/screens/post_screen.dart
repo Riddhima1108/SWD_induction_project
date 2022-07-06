@@ -2,6 +2,7 @@ import 'package:assign1/screens/comments_screen.dart';
 import 'package:assign1/widgets/posts_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 import '../model/posts_model.dart';
 import '../services/api_postdata.dart';
 

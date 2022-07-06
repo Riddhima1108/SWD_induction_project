@@ -1,32 +1,25 @@
-import 'package:assign1/model/posts_model.dart';
 import 'package:flutter/material.dart';
-
+import 'package:assign1/model/comments_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:like_button/like_button.dart';
 
 import '../constant.dart';
 
-class PostCardTitle extends StatefulWidget {
-  final List<PostModel> Posts;
+class CommentCard extends StatelessWidget {
+  final List<CommentModel> Comments;
   final int index;
-  const PostCardTitle({Key? key, required this.Posts, required this.index})
+
+  const CommentCard({Key? key, required this.Comments, required this.index})
       : super(key: key);
-
-  @override
-  State<PostCardTitle> createState() => _PostCardTitleState();
-}
-
-class _PostCardTitleState extends State<PostCardTitle> {
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.all(12.0),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(13),
-            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.grey.shade300,
             boxShadow: const [
               BoxShadow(
                 offset: Offset(0, 17),
@@ -36,6 +29,7 @@ class _PostCardTitleState extends State<PostCardTitle> {
               ),
             ],
           ),
+          padding: const EdgeInsets.all(4),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -43,8 +37,8 @@ class _PostCardTitleState extends State<PostCardTitle> {
                 padding: const EdgeInsets.all(8.0),
                 child: Icon(
                   Icons.account_circle,
-                  size: 60.0,
-                  color: Colors.purple.shade800,
+                  size: 35.0,
+                  color: Colors.cyan,
                 ),
               ),
               Expanded(
@@ -52,49 +46,48 @@ class _PostCardTitleState extends State<PostCardTitle> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(top: 12.0),
+                      padding: const EdgeInsets.only(top: 14.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Expanded(
                             child: Container(
-                              child: Text(
-                                widget.Posts[widget.index].title,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18.0,
-                                    color: kTextColor),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
+                                child: RichText(
+                              text: TextSpan(children: [
+                                TextSpan(
+                                  text: Comments[index].name,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16.0,
+                                      color: Colors.black),
+                                ),
+                                TextSpan(
+                                    text: "@ " + Comments[index].email,
+                                    style: TextStyle(
+                                        fontSize: 14.0, color: Colors.grey)),
+                              ]),
+                              overflow: TextOverflow.ellipsis,
+                            )),
                           ),
                         ],
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      padding: const EdgeInsets.symmetric(vertical: 2.0),
                       child: Text(
-                        widget.Posts[widget.index].body,
-                        style: TextStyle(fontSize: 18.0),
+                        Comments[index].body,
+                        style: TextStyle(fontSize: 16.0),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(4.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children:  <Widget>[
+                        children: <Widget>[
+                          LikeButton(),
                           Icon(
                             FontAwesomeIcons.comment,
                             color: Colors.black,
-                          ),
-                          Icon(
-                            FontAwesomeIcons.retweet,
-                            color: Colors.green,
-                          ),
-                          LikeButton(),
-                          Icon(
-                            FontAwesomeIcons.shareAlt,
-                            color: Colors.blue,
                           ),
                         ],
                       ),
