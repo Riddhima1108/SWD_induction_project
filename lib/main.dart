@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../screens/home.dart';
+import '../screens/home_bottom_navigationbar.dart';
 import './constant.dart';
-
 
 void main() => runApp(const MyApp());
 
@@ -10,18 +9,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Users Information',
-      theme: ThemeData(fontFamily: "Cairo",
-      scaffoldBackgroundColor: kBackgroundColor,
-        textTheme: Theme.of(context).textTheme.apply(displayColor: kTextColor),),
-    
-      home: const Home(),
+      theme: ThemeData(
+        fontFamily: "Cairo",
+        scaffoldBackgroundColor: kBackgroundColor,
+        textTheme: Theme.of(context).textTheme.apply(displayColor: kTextColor),
+      ),
+      home: NavigationbottomBar(),
     );
   }
 }
-
-
-

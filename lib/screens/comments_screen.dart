@@ -1,7 +1,8 @@
 import 'package:assign1/model/comments_model.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../constant.dart';
+
 import '../services/api_commentdata.dart';
 import 'package:assign1/model/posts_model.dart';
 
@@ -42,6 +43,7 @@ class _PostCommentScreenState extends State<PostCommentScreen> {
     });
   }
 
+  final _textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,9 +89,17 @@ class _PostCommentScreenState extends State<PostCommentScreen> {
                       borderRadius: BorderRadius.circular(29.5),
                     ),
                     child: TextField(
+                      controller: _textController,
                       decoration: InputDecoration(
                         hintText: "Add Comment...",
                         border: InputBorder.none,
+                        suffixIcon: IconButton(
+                          onPressed: (() {
+                            _textController.clear();
+                          }),
+                          icon: const Icon(FontAwesomeIcons.paperPlane,
+                              color: Colors.cyan),
+                        ),
                       ),
                     ),
                   ),
