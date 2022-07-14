@@ -2,7 +2,7 @@ import 'package:assign1/screens/comments_screen.dart';
 import 'package:assign1/widgets/posts_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import '../widgets/search_bar.dart';
 import '../model/posts_model.dart';
 import '../services/api_postdata.dart';
 
@@ -18,6 +18,8 @@ class UserPostScreen extends StatefulWidget {
 class _UserPostScreenState extends State<UserPostScreen> {
   List<PostModel>? _postModel = [];
   List<PostModel>? _userposts = [];
+  List<PostModel>? filtereduserposts = [];
+  String query = " ";
 
   @override
   void initState() {
@@ -84,45 +86,65 @@ class _UserPostScreenState extends State<UserPostScreen> {
                                 "Posts",
                                 style: Theme.of(context).textTheme.displaySmall,
                               ),
-                              Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 20, horizontal: 10),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 3),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(29.5),
-                                ),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    hintText: "Search",
-                                    icon: SvgPicture.asset(
-                                        "assets/icons/search.svg"),
-                                    border: InputBorder.none,
-                                  ),
-                                ),
-                              ),
+                              buildSearch(),
                             ],
                           ),
                         ),
                       ],
                     ),
-                    Expanded(
-                      child: ListView.separated(
-                        padding: EdgeInsets.all(8),
-                        itemCount: _userposts!.length,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                              onTap: () => postComments(context, index),
-                              child: PostCardTitle(
-                                  Posts: _userposts!, index: index));
-                        },
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(height: 16),
-                      ),
-                    ),
+                    query != " " && filtereduserposts!.isEmpty
+                        ? Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.search_off,
+                                  size: size.width * 0.15,
+                                ),
+                                Text("No results found !",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall),
+                              ],
+                            ),
+                          )
+                        : Expanded(
+                            child: ListView.separated(
+                              padding: EdgeInsets.all(8),
+                              itemCount: query == " "
+                                  ? _userposts!.length
+                                  : filtereduserposts!.length,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                    onTap: () => postComments(context, index),
+                                    child: PostCardTitle(
+                                        Posts: query == " "
+                                            ? _userposts!
+                                            : filtereduserposts!,
+                                        index: index));
+                              },
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(height: 16),
+                            ),
+                          ),
                   ],
                 ))
               ]));
+  }
+
+  Widget buildSearch() => SearchWidget(text: query, onChanged: searchUser);
+
+  void searchUser(String query) {
+    final Posts = _userposts!.where((Element) {
+      final titleLower = Element.title.toLowerCase();
+
+      final searchLower = query.toLowerCase();
+
+      return titleLower.contains(searchLower);
+    }).toList();
+    setState(() {
+      this.query = query;
+      this.filtereduserposts = Posts;
+    });
   }
 }

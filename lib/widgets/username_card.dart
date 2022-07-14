@@ -5,15 +5,21 @@ import '../screens/user_detailscreen.dart';
 import 'package:flutter/material.dart';
 import '../constant.dart';
 
-class UserCard extends StatelessWidget {
+class UserCard extends StatefulWidget {
   final List<UserModel> Username;
   final int index;
   const UserCard({Key? key, required this.Username, required this.index})
       : super(key: key);
 
+  @override
+  State<UserCard> createState() => _UserCardState();
+}
+
+class _UserCardState extends State<UserCard> {
   void selectUser(BuildContext ctx) {
     Navigator.of(ctx).push(MaterialPageRoute(builder: (_) {
-      return UserDetailScreen(userdetails: Username, index: index);
+      return UserDetailScreen(
+          userdetails: widget.Username, index: widget.index);
     }));
   }
 
@@ -51,7 +57,7 @@ class UserCard extends StatelessWidget {
                   ),
                   Spacer(),
                   Text(
-                    Username[index].username,
+                    widget.Username[widget.index].username,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),

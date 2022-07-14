@@ -1,3 +1,5 @@
+import 'package:assign1/widgets/search_bar.dart';
+
 import '../widgets/username_card.dart';
 import 'package:flutter/material.dart';
 import '../model/user_model.dart';
@@ -12,7 +14,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<UserModel>? _userModel = [];
+  List<UserModel>? userModel = [];
+  List<UserModel>? filtereduserModel = [];
+
+  String query = " ";
 
   @override
   void initState() {
@@ -21,7 +26,7 @@ class _HomeState extends State<Home> {
   }
 
   void _getUserData() async {
-    _userModel = (await ApiUserData().getUsers())!;
+    userModel = (await ApiUserData().getUsers())!;
     setState(() {});
   }
 
@@ -29,7 +34,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-        body: _userModel == null || _userModel!.isEmpty
+        body: userModel == null || userModel!.isEmpty
             ? const Center(
                 child: CircularProgressIndicator(),
               )
@@ -62,41 +67,63 @@ class _HomeState extends State<Home> {
                             )),
                         Text("Welcome!",
                             style: Theme.of(context).textTheme.displayMedium),
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 20),
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 30, vertical: 3),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(29.5),
-                          ),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              hintText: "Search",
-                              icon: SvgPicture.asset("assets/icons/search.svg"),
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                            child: GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 0.85,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: 20,
-                          ),
-                          itemCount: _userModel!.length,
-                          itemBuilder: (context, index) {
-                            return UserCard(
-                                Username: _userModel!, index: index);
-                          },
-                        ))
+                        buildSearch(),
+                        query != " " && filtereduserModel!.isEmpty
+                            ? Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.search_off,
+                                      size: size.width * 0.15,
+                                    ),
+                                    Text("No results found !",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall),
+                                  ],
+                                ),
+                              )
+                            : Expanded(
+                                child: GridView.builder(
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 0.85,
+                                  crossAxisSpacing: 20,
+                                  mainAxisSpacing: 20,
+                                ),
+                                itemCount: query == " "
+                                    ? userModel!.length
+                                    : filtereduserModel!.length,
+                                itemBuilder: (context, index) {
+                                  return UserCard(
+                                      Username: query == " "
+                                          ? userModel!
+                                          : filtereduserModel!,
+                                      index: index);
+                                },
+                              ))
                       ],
                     ),
                   ),
                 )
               ]));
+  }
+
+  Widget buildSearch() => SearchWidget(text: query, onChanged: searchUser);
+
+  void searchUser(String query) {
+    final filtereduserModel = userModel!.where((Element) {
+      final titleLower = Element.username.toLowerCase();
+
+      final searchLower = query.toLowerCase();
+
+      return titleLower.contains(searchLower);
+    }).toList();
+    setState(() {
+      this.query = query;
+      this.filtereduserModel = filtereduserModel;
+    });
   }
 }
