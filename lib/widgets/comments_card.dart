@@ -1,17 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:assign1/model/comments_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:like_button/like_button.dart';
+
 
 import '../constant.dart';
 
-class CommentCard extends StatelessWidget {
+class CommentCard extends StatefulWidget {
   final List<CommentModel> Comments;
   final int index;
 
   const CommentCard({Key? key, required this.Comments, required this.index})
       : super(key: key);
 
+  @override
+  State<CommentCard> createState() => _CommentCardState();
+}
+
+class _CommentCardState extends State<CommentCard> {
+  bool liked = false;
+  bool showReply = false;
+
+
+  _pressed() {
+    setState(() {
+      liked = !liked;
+    });
+  }
+
+  _reply() {
+    setState(() {
+      showReply = !showReply;
+    });
+  }
+
+ 
+
+  Widget build_replyitem(String Reply) {
+    return ListTile(
+      title: Text(Reply),
+    );
+  }
+
+  final _textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -55,14 +85,15 @@ class CommentCard extends StatelessWidget {
                                 child: RichText(
                               text: TextSpan(children: [
                                 TextSpan(
-                                  text: Comments[index].name,
+                                  text: widget.Comments[widget.index].name,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16.0,
                                       color: Colors.black),
                                 ),
                                 TextSpan(
-                                    text: "@ " + Comments[index].email,
+                                    text: "@ " +
+                                        widget.Comments[widget.index].email,
                                     style: TextStyle(
                                         fontSize: 14.0, color: Colors.grey)),
                               ]),
@@ -75,7 +106,7 @@ class CommentCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 2.0),
                       child: Text(
-                        Comments[index].body,
+                        widget.Comments[widget.index].body,
                         style: TextStyle(fontSize: 16.0),
                       ),
                     ),
@@ -84,17 +115,50 @@ class CommentCard extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          LikeButton(),
-                          Icon(
-                            FontAwesomeIcons.comment,
-                            color: Colors.black,
+                          IconButton(
+                              iconSize: 30.0,
+                              onPressed: _pressed,
+                              icon: Icon(
+                                liked ? Icons.favorite : Icons.favorite_border,
+                                color: liked ? Colors.red : Colors.grey,
+                              )),
+                          IconButton(
+                            onPressed: _reply,
+                            icon: Icon(
+                              FontAwesomeIcons.comment,
+                              color: showReply ? Colors.black : Colors.grey,
+                            ),
                           ),
                         ],
                       ),
-                    )
+                    ),
+                    showReply
+                        ? Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: TextField(
+                              controller: _textController,
+                              decoration: InputDecoration(
+                                hintText: "Reply...",
+                                border: InputBorder.none,
+                                suffixIcon: IconButton(
+                                  onPressed: (() {
+                                    _textController.clear();
+                                  }),
+                                  icon: const Icon(FontAwesomeIcons.reply,
+                                      color: Colors.black),
+                                ),
+                              ),
+                            ),
+                          )
+                        : Container(),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

@@ -17,6 +17,21 @@ class PostCardTitle extends StatefulWidget {
 }
 
 class _PostCardTitleState extends State<PostCardTitle> {
+  bool liked = false;
+  int clicked = 0;
+
+  _pressed() {
+    setState(() {
+      liked = !liked;
+    });
+  }
+
+  retweeted() {
+    setState(() {
+      clicked = clicked + 1;
+    
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,16 +97,31 @@ class _PostCardTitleState extends State<PostCardTitle> {
                       padding: const EdgeInsets.all(4.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children:  <Widget>[
+                        children: <Widget>[
                           Icon(
                             FontAwesomeIcons.comment,
                             color: Colors.black,
                           ),
-                          Icon(
-                            FontAwesomeIcons.retweet,
-                            color: Colors.green,
+                          Row(
+                            children: 
+                              [IconButton(iconSize: 30.0,
+                                onPressed: retweeted,
+                                icon: Icon(
+                                  FontAwesomeIcons.retweet,
+                                  color: clicked != 0 ? Colors.green : Colors.grey,
+                                ),
+                              ),
+                               Text(clicked.toString()),
+                            ],
                           ),
-                          LikeButton(),
+                          IconButton(
+                              iconSize: 30.0,
+                              onPressed: _pressed,
+                              icon: Icon(
+                                liked ? Icons.favorite : Icons.favorite_border,
+                                color: liked ? Colors.red : Colors.grey,
+                              )),
+                             
                           Icon(
                             FontAwesomeIcons.shareAlt,
                             color: Colors.blue,

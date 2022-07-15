@@ -58,10 +58,11 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    widget.userdetails[widget.index].name,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                  RichText(
+                    text: TextSpan(
+                    text: widget.userdetails[widget.index].name + " @ " +widget.userdetails[widget.index].username,
+                    style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
+                  ),),
                   SizedBox(height: 5),
                   Text(
                     widget.userdetails[widget.index].email,
